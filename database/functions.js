@@ -30,9 +30,15 @@ async function addNewManager(email) {
     return { data, error }
 }
 
+async function deleteManager(email) {
+    const { data, error } = await supabase.from('roles').delete().match({ email: email }).select('*');
+    return { data, error }
+}
+
 export {
     getAllPlayers,
     getRoleOfUser,
     getAllUsers,
-    addNewManager
+    addNewManager,
+    deleteManager
 }

@@ -1,4 +1,4 @@
-import { addNewManager, getAllUsers } from "@/database/functions"
+import { addNewManager, deleteManager, getAllUsers } from "@/database/functions"
 import { useEffect, useState } from "react"
 
 
@@ -32,6 +32,27 @@ export default function Invitations() {
             console.log('users error', error);
             if (data) setUsers(data);
         }
+
+        else {
+            alert('Email already exists as a manager or owner.');
+        }
+    }
+
+    async function handleManagerDeletion(email) {
+
+        const { data, error } = await deleteManager(email);
+        console.log('manager data', data);
+        console.log('manager error', error);
+        if (data) {
+            const { data, error } = await getAllUsers();
+            console.log('users data', data);
+            console.log('users error', error);
+            if (data) setUsers(data);
+        }
+        else {
+            alert('Something went wrong.');
+        }
+
     }
 
 
@@ -67,9 +88,10 @@ export default function Invitations() {
                 {
                     users.map((user, index) => {
                         return (
-                            <div key={index}>
+                            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px'}}>
                                 <h3>{user.email}</h3>
                                 <p>{user.role}</p>
+                                <button onClick={() => handleManagerDeletion(user.email)}>Delete</button>
                             </div>
                         )
                     })
