@@ -14,7 +14,6 @@ export default function Dashboard() {
       {role === 'guest' && <h1>Not permitted</h1>}
 
       <button onClick={() => supabase.auth.signOut()}>Sign Out</button>
-
     </Page>
   )
 }

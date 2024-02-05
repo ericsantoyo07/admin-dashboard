@@ -35,10 +35,28 @@ async function deleteManager(email) {
     return { data, error }
 }
 
+async function addNews(){
+    const { data, error } = await supabase.from('news').insert([{ title: 'untitled', content: '' }]).select('*');
+    return { data, error }
+}
+
+async function deleteNews(id) {
+    const { data, error } = await supabase.from('news').delete().match({ id: id }).select('*');
+    return { data, error }
+}
+
+async function getAllNews(){
+    const { data, error } = await supabase.from('news').select('*');
+    return { data, error }
+}
+
 export {
     getAllPlayers,
     getRoleOfUser,
     getAllUsers,
     addNewManager,
-    deleteManager
+    deleteManager,
+    addNews,
+    getAllNews,
+    deleteNews
 }
