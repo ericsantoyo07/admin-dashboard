@@ -50,6 +50,11 @@ async function getAllNews(){
     return { data, error }
 }
 
+async function updateNews(id, news){
+    const { data, error } = await supabase.from('news').update(news).match({ id: id }).select('*');
+    return { data, error }
+}
+
 export {
     getAllPlayers,
     getRoleOfUser,
@@ -58,5 +63,6 @@ export {
     deleteManager,
     addNews,
     getAllNews,
-    deleteNews
+    deleteNews,
+    updateNews
 }

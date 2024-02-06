@@ -1,4 +1,4 @@
-import { addNews, deleteNews, getAllNews } from "@/database/functions";
+import { addNews, deleteNews, getAllNews, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
 
 
@@ -46,14 +46,32 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
 }
 
 function EditNews({ news, setNews, setShouldFetch }) {
+    const [title, setTitle] = useState(news.title);
+    const [content, setContent] = useState(news.content);
+
+    async function handleNewsUpdate() {
+        let { data, error } = await updateNews(news.id, { title, content });
+
+        if (data) {
+            console.log('news data', data);
+        }
+        else {
+            console.log('news error', error);
+        }
+    }
+
     return (
         <div>
-            {
+            {/* {
                 JSON.stringify({ news: news || null })
             }
             <button onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}>Close</button>
             <h1> {'HIIII'} {news.title}</h1>
-            <p>{news.content}</p>
+            <p>{news.content}</p> */}
+            <button onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}>Back</button>
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <button onClick={handleNewsUpdate}>Save</button>
+
         </div>
     )
 }
