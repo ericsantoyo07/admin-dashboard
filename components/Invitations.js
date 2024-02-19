@@ -1,6 +1,7 @@
 import { addNewManager, deleteManager, getAllUsers } from "@/database/functions"
 import { useEffect, useState } from "react"
-
+import styles from "../styles/invitations.module.css"
+import { Shield, UserMinus, UserPlus } from "lucide-react";
 
 
 export default function Invitations() {
@@ -71,15 +72,12 @@ export default function Invitations() {
 
     return (
         <div>
-            <h1>Invitations</h1>
-
-
             <div>
-                <h2>Add New Admin</h2>
+                <h2 className={styles.manager_header}>Add New Manager</h2>
 
-                <div style={{ display: 'flex' }}>
+                <div className={styles.manager_input}>
                     <input type="email" placeholder="email" onChange={(e) => setInputEmail(e.target.value)} />
-                    <button onClick={handleManagerInsertion}>Add</button>
+                    <UserPlus  size={30} onClick={handleManagerInsertion} />
                 </div>
             </div>
 
@@ -88,10 +86,10 @@ export default function Invitations() {
                 {
                     users.map((user, index) => {
                         return (
-                            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px'}}>
+                            <div key={index} className={styles.manager}>
+                                <Shield />
                                 <h3>{user.email}</h3>
-                                <p>{user.role}</p>
-                                <button onClick={() => handleManagerDeletion(user.email)}>Delete</button>
+                                <UserMinus onClick={() => handleManagerDeletion(user.email)} />
                             </div>
                         )
                     })

@@ -41,3 +41,10 @@ body {
   padding: 1px;
   color: white;
 }
+.page {
+  background-color: #313338;
+  height: 100%;
+  color: white;
+}
+
+/* #1E1F22 #313338 #2B2D31 */
