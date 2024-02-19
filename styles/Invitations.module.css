@@ -28,3 +28,13 @@
 .manager>h3{
     margin-right: auto;
 }
+.manager_invitation{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.managers{
+    flex: 1;
+    overflow-y: scroll;
+}

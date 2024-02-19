@@ -1,5 +1,6 @@
 import { addNews, deleteNews, getAllNews, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
+import styles from "../styles/Article.module.css"
 
 
 function ListOfNews({ newsList, setNews, setShouldFetch }) {
@@ -32,15 +33,28 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
     }
 
     return (
-        <div>
+        <div className={styles.article_list}>
             <button onClick={handleAddNews}>Add News </button>
-            {newsList.map((news, index) => {
-                return <div key={index}>
-                    <h2>{news.title}</h2>
-                    <button onClick={() => setNews({ ...news })}>Edit</button>
-                    <button onClick={async () => { await handleNewsDeletion(news.id) }}>Delete</button>
-                </div>
-            })}
+            <div className={styles.articles}>
+                {newsList.map((news, index) => {
+                    return <div key={index} className={styles.article}>
+                        <div className={styles.article_image}>
+                            {
+                                news.cover_photo_url ?
+                                    <img src={news.cover_photo_url} /> : <img src="/defaultArticleImage.jpg" />
+                            }
+                        </div>
+
+                        <div className={styles.article_main}>
+                            <h2>{news.title}</h2>
+                            <button onClick={() => setNews({ ...news })}>Edit</button>
+                            <button onClick={async () => { await handleNewsDeletion(news.id) }}>Delete</button>
+                        </div>
+
+                    </div>
+                })}
+            </div>
+           
         </div>
     )
 }
@@ -103,7 +117,7 @@ export default function Articles() {
 
 
     return (
-        <div>
+        <div className={styles.article_page}>
             {news && <EditNews news={news} setNews={setNews} setShouldFetch={setShouldFetch} />}
             {!news && <ListOfNews newsList={newsList} setNews={setNews} setShouldFetch={setShouldFetch} />}
         </div>

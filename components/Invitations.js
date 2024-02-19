@@ -1,6 +1,6 @@
 import { addNewManager, deleteManager, getAllUsers } from "@/database/functions"
 import { useEffect, useState } from "react"
-import styles from "../styles/invitations.module.css"
+import styles from "../styles/Invitations.module.css"
 import { Shield, UserMinus, UserPlus } from "lucide-react";
 
 
@@ -71,7 +71,7 @@ export default function Invitations() {
 
 
     return (
-        <div>
+        <div className={styles.manager_invitation}>
             <div>
                 <h2 className={styles.manager_header}>Add New Manager</h2>
 
@@ -81,7 +81,7 @@ export default function Invitations() {
                 </div>
             </div>
 
-            <div>
+            <div className={styles.managers}>
 
                 {
                     users.map((user, index) => {

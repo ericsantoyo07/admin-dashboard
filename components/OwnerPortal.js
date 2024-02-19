@@ -16,7 +16,7 @@ export default function OwnerPortal() {
 
     const [selectedTab, setSelectedTab] = useState(TAB_OPTIONS.INVITAIONS);
     return (
-        <div>
+        <div className={styles.owner_portal}>
             <div className={styles.nav_bar}>
                 <h1>Owner Portal</h1>
                 {/* <button >Sign Out</button> */}

@@ -1,7 +1,9 @@
+import GuestPortal from "@/components/GuestPortal";
+import ManagerPortal from "@/components/ManagerPortal";
 import OwnerPortal from "@/components/OwnerPortal";
 import { Page } from "@/components/Page";
 import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/database/supabase";
+
 
 export default function Dashboard() {
 
@@ -10,10 +12,9 @@ export default function Dashboard() {
   return (
     <Page>
       {role === 'owner' && <OwnerPortal />}
-      {role === 'manager' && <h1>Manager Portal</h1>}
-      {role === 'guest' && <h1>Not permitted</h1>}
+      {role === 'manager' && <ManagerPortal />}
+      {role === 'guest' && <GuestPortal />}
 
-      <button onClick={() => supabase.auth.signOut()}>Sign Out</button>
     </Page>
   )
 }
