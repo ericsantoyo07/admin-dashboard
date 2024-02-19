@@ -3,6 +3,9 @@ import { supabase } from "@/database/supabase";
 import { useEffect, useState } from "react";
 import Articles from "@/components/Articles";
 import Invitations from "@/components/Invitations";
+import styles from '@/styles/OwnerPortal.module.css';
+
+
 const TAB_OPTIONS = {
     INVITAIONS: 'invitations',
     ARTICLES: 'articles',
