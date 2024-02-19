@@ -34,7 +34,7 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
 
     return (
         <div className={styles.article_list}>
-            <button onClick={handleAddNews}>Add News </button>
+            <button className={styles.add_news} onClick={handleAddNews}>Add News </button>
             <div className={styles.articles}>
                 {newsList.map((news, index) => {
                     return <div key={index} className={styles.article}>
@@ -47,14 +47,17 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
 
                         <div className={styles.article_main}>
                             <h2>{news.title}</h2>
-                            <button onClick={() => setNews({ ...news })}>Edit</button>
-                            <button onClick={async () => { await handleNewsDeletion(news.id) }}>Delete</button>
+
+                            <div className={styles.article_buttons}>
+                                <button onClick={() => setNews({ ...news })}>Edit</button>
+                                <button onClick={async () => { await handleNewsDeletion(news.id) }}>Delete</button>
+                            </div>
                         </div>
 
                     </div>
                 })}
             </div>
-           
+
         </div>
     )
 }

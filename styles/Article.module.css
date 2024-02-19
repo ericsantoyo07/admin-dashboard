@@ -1,15 +1,59 @@
 .article_page{
     flex: 1;
+    background-color: rebeccapurple;
     display: flex;
     flex-direction: column;
-}
-.articles{
-    background-color: blue;
-    flex: 1;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 .article_list{
     flex: 1;
     display: flex;
     flex-direction: column;
+    background-color: red;
+    overflow: hidden;
+}
+.add_news {
+    width: max-content;
+    margin: 20px;
+    margin-left: auto;
+}
+.articles{
+    flex: 1;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: max-content;
+    gap: 10px;
+    padding: 20px;
+}
+
+.article {
+    display: flex;
+    background-color: rebeccapurple;
+    height: max-content;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.article_image {
+    max-width: 30%;
+}
+
+.article_image > img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.article_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+
+}
+.article_buttons {
+    display: flex;
+    gap: 5px;
 }
