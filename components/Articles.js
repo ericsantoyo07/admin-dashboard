@@ -2,6 +2,7 @@ import { addNews, deleteNews, getAllNews, updateNews } from "@/database/function
 import { useEffect, useState } from "react"
 import styles from "../styles/Article.module.css"
 import { FilePenLine, Trash2, UserMinus } from "lucide-react";
+import ArticleCoverPhoto from "./ArticleCoverPhoto";
 
 
 function ListOfNews({ newsList, setNews, setShouldFetch }) {
@@ -50,7 +51,7 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
                             <div className={styles.article_title}><h2>{news.title}</h2></div>
 
                             <div className={styles.article_buttons}>
-                                <FilePenLine onClick={() => setNews({ ...news })}/>
+                                <FilePenLine onClick={() => setNews({ ...news })} />
                                 <Trash2 onClick={async () => { await handleNewsDeletion(news.id) }} />
                             </div>
                         </div>
@@ -88,6 +89,7 @@ function EditNews({ news, setNews, setShouldFetch }) {
             <p>{news.content}</p> */}
             <button onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}>Back</button>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} />
             <button onClick={handleNewsUpdate}>Save</button>
 
         </div>
