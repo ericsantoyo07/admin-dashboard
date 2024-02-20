@@ -87,7 +87,7 @@ export default function Invitations() {
                     users.map((user, index) => {
                         return (
                             <div key={index} className={styles.manager}>
-                                <Shield />
+                                <Shield color="#65b1ff" />
                                 <h3>{user.email}</h3>
                                 <UserMinus onClick={() => handleManagerDeletion(user.email)} />
                             </div>

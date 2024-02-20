@@ -1,6 +1,7 @@
 import { addNews, deleteNews, getAllNews, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
 import styles from "../styles/Article.module.css"
+import { FilePenLine, Trash2, UserMinus } from "lucide-react";
 
 
 function ListOfNews({ newsList, setNews, setShouldFetch }) {
@@ -34,7 +35,7 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
 
     return (
         <div className={styles.article_list}>
-            <button className={styles.add_news} onClick={handleAddNews}>Add News </button>
+            <button className={styles.add_news} onClick={handleAddNews}>Add News</button>
             <div className={styles.articles}>
                 {newsList.map((news, index) => {
                     return <div key={index} className={styles.article}>
@@ -46,11 +47,11 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
                         </div>
 
                         <div className={styles.article_main}>
-                            <h2>{news.title}</h2>
+                            <div className={styles.article_title}><h2>{news.title}</h2></div>
 
                             <div className={styles.article_buttons}>
-                                <button onClick={() => setNews({ ...news })}>Edit</button>
-                                <button onClick={async () => { await handleNewsDeletion(news.id) }}>Delete</button>
+                                <FilePenLine onClick={() => setNews({ ...news })}/>
+                                <Trash2 onClick={async () => { await handleNewsDeletion(news.id) }} />
                             </div>
                         </div>
 

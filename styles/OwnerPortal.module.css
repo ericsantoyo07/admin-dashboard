@@ -1,25 +1,29 @@
-.nav_bar{
+.nav_bar {
     display: flex;
     padding: 20px;
     align-items: center;
     justify-content: space-between;
 }
 
-.tabs{
+.tabs {
     margin: auto;
     width: max-content;
     display: flex;
 }
 
-.tabs>button{
-    padding: 10px;
+.tabs>button {
+    padding: 15px;
     border: none;
     outline: none;
     color: white;
+    border: 1px solid rgb(57, 57, 57);
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
-.owner_portal{
+
+.owner_portal {
     height: 100%;
     display: flex;
     flex-direction: column;
-    
+
 }
