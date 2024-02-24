@@ -55,7 +55,7 @@
 .article_image {
     width: 300px;
     min-width: 300px;
-    min-height: 200px;
+    min-height: max-content;
 }
 
 .article_image>img {
