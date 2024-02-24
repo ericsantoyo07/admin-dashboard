@@ -92,6 +92,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: #2B2D31;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #5a5a5a;
 }
 
 .article_image {

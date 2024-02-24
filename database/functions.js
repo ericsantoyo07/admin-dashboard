@@ -55,12 +55,11 @@ async function updateNews(id, news) {
     return { data, error }
 }
 
-async function addCoverPhoto(file, newsID) {
+async function addCoverPhoto(file, filepath) {
     const extension = file.name.split('.').pop();
-    const filename = `${newsID}.${extension}`;
     const { data, error } = await supabase.storage
         .from("cover_photos")
-        .upload(filename, file, {
+        .upload(filepath, file, {
             upsert: true,
             cacheControl: '0',
         });
