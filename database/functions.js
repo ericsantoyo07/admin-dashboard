@@ -36,7 +36,7 @@ async function deleteManager(email) {
 }
 
 async function addNews() {
-    const { data, error } = await supabase.from('news').insert([{ title: 'untitled', content: '' }]).select('*');
+    const { data, error } = await supabase.from('news').insert([{ title: 'untitled', content: '', updated_at: Date.now() }]).select('*');
     return { data, error }
 }
 
