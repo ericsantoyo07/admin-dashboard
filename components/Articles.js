@@ -1,7 +1,7 @@
 import { addNews, deleteNews, getAllNews, getAllSuggestionTags, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
 import styles from "../styles/Article.module.css"
-import { FilePenLine, Trash2, UserMinus } from "lucide-react";
+import { ArrowLeft, FilePenLine, Trash2, UserMinus } from "lucide-react";
 import ArticleCoverPhoto from "./ArticleCoverPhoto";
 import TagsManager from "./TagsManager";
 
@@ -91,10 +91,10 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
             <button onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}>Close</button>
             <h1> {'HIIII'} {news.title}</h1>
             <p>{news.content}</p> */}
-            <button onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}>Back</button>
+            <ArrowLeft onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}/>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} />
             <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} />
+            <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} />
             <button onClick={handleNewsUpdate}>Save</button>
 
         </div>

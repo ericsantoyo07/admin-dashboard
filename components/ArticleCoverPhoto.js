@@ -1,5 +1,6 @@
 import { addCoverPhoto, updateCoverPhotoUrl } from "@/database/functions";
 import { supabase } from "@/database/supabase";
+import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 
 
@@ -10,6 +11,11 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!file) {
+            alert('no file selected');
+            return;
+        }
 
         const filename = `${file.name}`;
 
@@ -50,11 +56,14 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="file" name="image" onChange={handleFileSelected} />
-            <button type="submit">Upload image</button>
-            { isLoading && <p>loading...</p>}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <input type="file" name="image" onChange={handleFileSelected} />
+                <UploadIcon onClick={handleSubmit} type="submit" />
+
+            </div>
+            {isLoading && <p>loading...</p>}
             {url && !isLoading && <img width={200} src={url} />}
-        </form>
+        </div>
     );
 }

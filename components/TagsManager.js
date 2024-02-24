@@ -53,7 +53,7 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
 
                         filteredSuggestedTags().map((tag, index) => {
                             return (
-                                <div key={index} className="tag_suggestion" onClick={() => {
+                                <div key={index} className={styles.tag_suggestion} onClick={() => {
                                     addTag(tag)
                                 }}>
                                     {tag.text}
@@ -64,11 +64,11 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
                 </div>
             }
 
-            <div className="tags">
+            <div className={styles.tags}>
                 {
                     tags.map((tag, index) => {
                         return (
-                            <div key={index} className="tag">
+                            <div key={index} className={styles.tag}>
                                 <p>
                                     {tag.text}
                                 </p>
