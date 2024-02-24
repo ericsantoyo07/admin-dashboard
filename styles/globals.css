@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
 }
 
 html,
@@ -27,20 +29,25 @@ body {
   align-items: center;
 }
 
-#auth-sign-in, #auth-sign-up, #auth-forgot-password {
+#auth-sign-in,
+#auth-sign-up,
+#auth-forgot-password {
   background-color: #2b2b2b;
   padding: 20px;
   border-radius: 20px;
 }
 
-#email, #password, #auth-forgot-password {
+#email,
+#password,
+#auth-forgot-password {
   color: white;
 }
 
-.auth form > input {
+.auth form>input {
   padding: 1px;
   color: white;
 }
+
 .page {
   background-color: #313338;
   height: 100%;

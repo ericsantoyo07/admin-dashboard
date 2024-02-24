@@ -3,6 +3,8 @@ import { supabase } from "@/database/supabase";
 import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 
+import styles from "../styles/Article.module.css";
+
 
 export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
     const [file, setfile] = useState([]);
@@ -56,7 +58,7 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={styles.article_cover_photo}>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <input type="file" name="image" onChange={handleFileSelected} />
                 <UploadIcon onClick={handleSubmit} type="submit" />

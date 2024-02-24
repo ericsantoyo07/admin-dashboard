@@ -73,6 +73,14 @@
 
 }
 
+.article_cover_photo {
+    margin: auto;
+    width: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .article_image {
     width: 300px;
     min-width: 300px;

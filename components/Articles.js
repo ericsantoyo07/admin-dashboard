@@ -85,11 +85,11 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
 
     return (
         <div className={styles.edit_article}>
-            <ArrowLeft onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}/>
+            <ArrowLeft size={30} style={{marginLeft: '10px'}} onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}/>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.article_title_input} />
             <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} />
             <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} />
-            <CheckCircle size={50} style={{cursor: 'pointer'}} onClick={handleNewsUpdate} />
+            <CheckCircle color="yellow" size={50} style={{cursor: 'pointer'}} onClick={handleNewsUpdate} />
 
         </div>
     )
