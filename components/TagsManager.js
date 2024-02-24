@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import styles from '../styles/Article.module.css'
+import { PlusCircle } from "lucide-react";
 
 export default function TagsManager({ tags, setTags, suggestedTags, setSuggestedTags }) {
 
@@ -29,40 +30,48 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
     return (
         <div className={styles.tags_manager}>
 
-            <input type="text" value={tagInput} onChange={(e) => { setTagInput(e.target.value) }} onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                    addTag({
-                        text: tagInput,
-                        type: 'other',
-                        id: null
-                    })
-                }
-            }} />
-            <button onClick={() => {
-                addTag({
-                    text: tagInput,
-                    type: 'other',
-                    id: null
-                })
-            }
-            }>Add</button>
-            {
-                tagInput != '' &&
-                <div className={styles.suggested_tags}>
-                    {
+            <div className={styles.tag_adder}>
+                <div className={styles.tag_input_container}>
+                    <input type="text" value={tagInput} onChange={(e) => { setTagInput(e.target.value) }} onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            addTag({
+                                text: tagInput,
+                                type: 'other',
+                                id: null
+                            })
+                        }
+                    }}
+                        className={styles.tag_input}
+                    />
 
-                        filteredSuggestedTags().map((tag, index) => {
-                            return (
-                                <div key={index} className={styles.tag_suggestion} onClick={() => {
-                                    addTag(tag)
-                                }}>
-                                    {tag.text}
-                                </div>
-                            )
+                    <PlusCircle size={30} onClick={() => {
+                        addTag({
+                            text: tagInput,
+                            type: 'other',
+                            id: null
                         })
-                    }
+                    }} />
+
                 </div>
-            }
+
+                {
+                    tagInput != '' && filteredSuggestedTags()?.length !== 0 &&
+                    <div className={styles.suggested_tags}>
+                        {
+
+                            filteredSuggestedTags().map((tag, index) => {
+                                return (
+                                    <div key={index} className={styles.tag_suggestion} onClick={() => {
+                                        addTag(tag)
+                                    }}>
+                                        {tag.text}
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                }
+            </div>
 
             <div className={styles.tags}>
                 {
@@ -81,7 +90,6 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
                 }
 
             </div>
-            <h1>Tags Manager</h1>
         </div>
     )
 }
