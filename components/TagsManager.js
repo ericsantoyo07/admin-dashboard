@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import styles from '../styles/Article.module.css'
 import { PlusCircle } from "lucide-react";
 
-export default function TagsManager({ tags, setTags, suggestedTags, setSuggestedTags }) {
+export default function TagsManager({ tags, setTags, suggestedTags, setEdited}) {
 
 
     const [tagInput, setTagInput] = useState('');
+    const [hasInputFocus, setHasInputFocus] = useState(false);
 
     function filteredSuggestedTags() {
         return suggestedTags.filter(t => t.text.toLowerCase().includes(tagInput.toLowerCase()))
@@ -21,6 +22,7 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
             return
         }
         setTags([...tags, tag]);
+        setEdited(true);
         setTagInput('');
     }
 
@@ -32,15 +34,19 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
 
             <div className={styles.tag_adder}>
                 <div className={styles.tag_input_container}>
-                    <input type="text" value={tagInput} onChange={(e) => { setTagInput(e.target.value) }} onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            addTag({
-                                text: tagInput,
-                                type: 'other',
-                                id: null
-                            })
-                        }
-                    }}
+                    <input type="text" value={tagInput}
+                        onFocus={() => setHasInputFocus(true)}
+                        onBlur={() => setHasInputFocus(false)}
+                        onChange={(e) => { setTagInput(e.target.value) }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                addTag({
+                                    text: tagInput,
+                                    type: 'other',
+                                    id: null
+                                })
+                            }
+                        }}
                         className={styles.tag_input}
                     />
 
@@ -55,7 +61,7 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
                 </div>
 
                 {
-                    tagInput != '' && filteredSuggestedTags()?.length !== 0 &&
+                    tagInput != '' && filteredSuggestedTags()?.length !== 0 && hasInputFocus &&
                     <div className={styles.suggested_tags}>
                         {
 
@@ -82,7 +88,8 @@ export default function TagsManager({ tags, setTags, suggestedTags, setSuggested
                                     {tag.text}
                                 </p>
                                 <button onClick={() => {
-                                    setTags(tags.filter((t, i) => i !== index)) // remove the tag at index
+                                    setTags(tags.filter((t, i) => i !== index)); // remove the tag at index
+                                    setEdited(true);
                                 }}>X</button>
                             </div>
                         )

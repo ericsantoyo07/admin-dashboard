@@ -1,7 +1,7 @@
 import { addNews, deleteNews, getAllNews, getAllSuggestionTags, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
 import styles from "../styles/Article.module.css"
-import { ArrowLeft, CheckCircle, FilePenLine, Save, SaveAll, SaveIcon, Trash2, UserMinus } from "lucide-react";
+import { ArrowLeft, CheckCircle, CircleDashed, FilePenLine, Save, SaveAll, SaveIcon, Trash2, UserMinus } from "lucide-react";
 import ArticleCoverPhoto from "./ArticleCoverPhoto";
 import TagsManager from "./TagsManager";
 
@@ -68,12 +68,22 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
 function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
     const [title, setTitle] = useState(news.title);
     const [content, setContent] = useState(news.content);
-
     const [tags, setTags] = useState(news.tags || []);
+    const [loading, setLoading] = useState(false);
+    const [edited, setEdited] = useState(false);
 
     async function handleNewsUpdate() {
+
+        if (!edited) {
+            return;
+        }
+
         let updated_at = Date.now();
+
+        setLoading(true);
         let { data, error } = await updateNews(news.id, { title, content, tags, updated_at });
+        setLoading(false);
+        setEdited(false);
 
         if (data) {
             console.log('news data', data);
@@ -83,14 +93,32 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
         }
     }
 
+    if (loading) {
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+            <CircleDashed size={50} />
+        </div>
+    }
+
     return (
         <div className={styles.edit_article}>
-            <ArrowLeft size={30} style={{marginLeft: '10px'}} onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}/>
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.article_title_input} />
-            <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} />
-            <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} />
-            <CheckCircle color="yellow" size={50} style={{cursor: 'pointer'}} onClick={handleNewsUpdate} />
 
+            <ArrowLeft size={30} style={{ marginLeft: '10px', marginBottom: '10px' }} onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }} />
+            <div className={styles.article_content}>
+                <input type="text" value={title} onChange={(e) => { setTitle(e.target.value); setEdited(true) }} className={styles.article_title_input} />
+                <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
+                <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
+            </div>
+            <CheckCircle size={50}
+                aria-disabled={!edited}
+
+                color={edited ? 'white' : 'grey'}
+                style={{
+                    cursor: 'pointer',
+                    marginTop: '10px',
+                    marginBottom: '10px',
+                    marginRight: '10px',
+                    marginLeft: 'auto'
+                }} onClick={handleNewsUpdate} />
         </div>
     )
 }
@@ -99,11 +127,11 @@ export default function Articles() {
 
     const [news, setNews] = useState(null);
     const [newsList, setNewsList] = useState([]);
-    const [suggestedTags, setSuggestedTags] = useState([]);  
+    const [suggestedTags, setSuggestedTags] = useState([]);
     const [shouldFetch, setShouldFetch] = useState(true);
-    
 
-    useEffect(()=> {
+
+    useEffect(() => {
 
         async function getSuggestedTags() {
             let { suggestions: data, error } = await getAllSuggestionTags();
@@ -118,7 +146,7 @@ export default function Articles() {
 
         getSuggestedTags();
 
-    },[])
+    }, [])
 
 
     useEffect(() => {

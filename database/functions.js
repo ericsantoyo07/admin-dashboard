@@ -62,6 +62,7 @@ async function addCoverPhoto(file, newsID) {
         .from("cover_photos")
         .upload(filename, file, {
             upsert: true,
+            cacheControl: '0',
         });
     return { data, error }
 }

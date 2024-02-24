@@ -1,15 +1,16 @@
 import { addCoverPhoto, updateCoverPhotoUrl } from "@/database/functions";
 import { supabase } from "@/database/supabase";
 import { UploadIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "../styles/Article.module.css";
 
 
-export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
+export default function ArticleCoverPhoto({ newsId, cover_photo_url, loading, setLoading }) {
     const [file, setfile] = useState([]);
     const [url, setUrl] = useState(cover_photo_url);
-    const [isLoading, setIsLoading] = useState(false);
+    const [random, setRandom] = useState(1)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,23 +26,23 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
             alert('not an image');
             return;
         }
-        setIsLoading(true);
+        setLoading(true);
         let { data, error } = await addCoverPhoto(file, newsId);
-        setIsLoading(false);
+        setLoading(false);
 
         if (!data) return;
 
 
         const filepath = `${newsId}.${file.name.split('.').pop()}`
 
-        setIsLoading(true);
+        setLoading(true);
         const { data: urlData } = supabase
             .storage
             .from('cover_photos')
             .getPublicUrl(`${filepath}`)
         console.log('url', urlData);
         const { data: coverPhotoUpdateData, error: coverPhotoUpdateError } = await updateCoverPhotoUrl(newsId, urlData.publicUrl);
-        setIsLoading(false);
+        setLoading(false);
         setUrl(urlData.publicUrl);
 
         if (coverPhotoUpdateError) {
@@ -49,6 +50,10 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
         }
 
     }
+
+    useEffect(() => {
+        console.log(url)
+    }, [url])
 
 
 
@@ -64,8 +69,7 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
                 <UploadIcon onClick={handleSubmit} type="submit" />
 
             </div>
-            {isLoading && <p>loading...</p>}
-            {url && !isLoading && <img width={200} src={url} />}
+            {url && !loading && <img key={url+`${Math.random()}`} width={200} src={url} />}
         </div>
     );
 }
