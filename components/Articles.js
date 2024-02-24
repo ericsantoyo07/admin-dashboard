@@ -1,8 +1,9 @@
-import { addNews, deleteNews, getAllNews, updateNews } from "@/database/functions";
+import { addNews, deleteNews, getAllNews, getAllSuggestionTags, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
 import styles from "../styles/Article.module.css"
 import { FilePenLine, Trash2, UserMinus } from "lucide-react";
 import ArticleCoverPhoto from "./ArticleCoverPhoto";
+import TagsManager from "./TagsManager";
 
 
 function ListOfNews({ newsList, setNews, setShouldFetch }) {
@@ -64,12 +65,15 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
     )
 }
 
-function EditNews({ news, setNews, setShouldFetch }) {
+function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
     const [title, setTitle] = useState(news.title);
     const [content, setContent] = useState(news.content);
 
+    const [tags, setTags] = useState(news.tags || []);
+
     async function handleNewsUpdate() {
-        let { data, error } = await updateNews(news.id, { title, content });
+        let updated_at = Date.now();
+        let { data, error } = await updateNews(news.id, { title, content, tags, updated_at });
 
         if (data) {
             console.log('news data', data);
@@ -89,6 +93,7 @@ function EditNews({ news, setNews, setShouldFetch }) {
             <p>{news.content}</p> */}
             <button onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }}>Back</button>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} />
             <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} />
             <button onClick={handleNewsUpdate}>Save</button>
 
@@ -100,8 +105,26 @@ export default function Articles() {
 
     const [news, setNews] = useState(null);
     const [newsList, setNewsList] = useState([]);
-
+    const [suggestedTags, setSuggestedTags] = useState([]);  
     const [shouldFetch, setShouldFetch] = useState(true);
+    
+
+    useEffect(()=> {
+
+        async function getSuggestedTags() {
+            let { suggestions: data, error } = await getAllSuggestionTags();
+            if (data) {
+                console.log('suggested tags data', data);
+                setSuggestedTags(data);
+            }
+            else {
+                console.log('suggested tags error', error);
+            }
+        }
+
+        getSuggestedTags();
+
+    },[])
 
 
     useEffect(() => {
@@ -124,7 +147,7 @@ export default function Articles() {
 
     return (
         <div className={styles.article_page}>
-            {news && <EditNews news={news} setNews={setNews} setShouldFetch={setShouldFetch} />}
+            {news && <EditNews news={news} setNews={setNews} setShouldFetch={setShouldFetch} suggestedTags={suggestedTags} />}
             {!news && <ListOfNews newsList={newsList} setNews={setNews} setShouldFetch={setShouldFetch} />}
         </div>
     )

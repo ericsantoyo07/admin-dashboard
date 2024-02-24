@@ -84,3 +84,9 @@
 .article_title {
     overflow-wrap: break-word;
 }
+
+.suggested_tags {
+    height: 300px;
+    overflow-y: scroll;
+    width: max-content;
+}

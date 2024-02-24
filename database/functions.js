@@ -35,7 +35,7 @@ async function deleteManager(email) {
     return { data, error }
 }
 
-async function addNews(){
+async function addNews() {
     const { data, error } = await supabase.from('news').insert([{ title: 'untitled', content: '' }]).select('*');
     return { data, error }
 }
@@ -45,30 +45,59 @@ async function deleteNews(id) {
     return { data, error }
 }
 
-async function getAllNews(){
-    const { data, error } = await supabase.from('news').select('*');
+async function getAllNews() {
+    const { data, error } = await supabase.from('news').select('*').order('updated_at', { ascending: false });
     return { data, error }
 }
 
-async function updateNews(id, news){
+async function updateNews(id, news) {
     const { data, error } = await supabase.from('news').update(news).match({ id: id }).select('*');
     return { data, error }
 }
 
-async function addCoverPhoto(file, newsID){
+async function addCoverPhoto(file, newsID) {
     const extension = file.name.split('.').pop();
     const filename = `${newsID}.${extension}`;
     const { data, error } = await supabase.storage
-    .from("cover_photos")
-    .upload(filename, file, {
-        upsert: true,
-    });
+        .from("cover_photos")
+        .upload(filename, file, {
+            upsert: true,
+        });
     return { data, error }
 }
 
 async function updateCoverPhotoUrl(newsId, url) {
     const { data, error } = await supabase.from('news').update({ cover_photo_url: url }).match({ id: newsId }).select('*');
     return { data, error }
+}
+
+async function getAllSuggestionTags() {
+    const { data: players, error: playersError } = await supabase.from('players').select('*');
+    const { data: teams, error: teamsError } = await supabase.from('teams').select('*');
+
+    let suggestions = [];
+    if (players) {
+        // { text: player.name, type: 'player', id: player.id }
+        // { text: player.nickname, type: 'player', id: player.id }
+        players.forEach(player => {
+            suggestions.push({ text: player.name, type: 'player', id: player.playerID });
+            suggestions.push({ text: player.nickname, type: 'player', id: player.playerID });
+        })
+
+    }
+
+    if (teams) {
+        // { text: team.name, type: 'team', id: team.id }
+        // { text: team.nickname, type: 'team', id: team.id }
+        teams.forEach(team => {
+            suggestions.push({ text: team.name, type: 'team', id: team.teamID });
+            suggestions.push({ text: team.nickname, type: 'team', id: team.teamID });
+
+        })
+
+    }
+
+    return { suggestions, error: { playersError, teamsError } }
 }
 
 export {
@@ -82,5 +111,6 @@ export {
     deleteNews,
     updateNews,
     addCoverPhoto,
-    updateCoverPhotoUrl
+    updateCoverPhotoUrl,
+    getAllSuggestionTags
 }
