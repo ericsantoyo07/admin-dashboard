@@ -108,17 +108,19 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
                 <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
                 <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
             </div>
-            <CheckCircle size={50}
-                aria-disabled={!edited}
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <CheckCircle size={50}
+                    aria-disabled={!edited}
 
-                color={edited ? 'white' : 'grey'}
-                style={{
-                    cursor: 'pointer',
-                    marginTop: '10px',
-                    marginBottom: '10px',
-                    marginRight: '10px',
-                    marginLeft: 'auto'
-                }} onClick={handleNewsUpdate} />
+                    color={edited ? 'white' : 'grey'}
+                    style={{
+                        cursor: 'pointer',
+                        marginTop: '10px',
+                        marginBottom: '10px',
+                        marginRight: '10px',
+                        marginLeft: 'auto'
+                    }} onClick={handleNewsUpdate} />
+            </div>
         </div>
     )
 }
