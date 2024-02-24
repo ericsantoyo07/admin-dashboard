@@ -65,6 +65,7 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
 
     return (
         <div className={styles.article_cover_photo}>
+            <h3>Cover Photo</h3>
             <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
                 <input type="file" name="image" onChange={handleFileSelected} />
                 {loading && <CircleDashed />}

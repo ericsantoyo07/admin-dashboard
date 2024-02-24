@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import styles from '../styles/Article.module.css'
 import { PlusCircle } from "lucide-react";
 
-export default function TagsManager({ tags, setTags, suggestedTags, setEdited}) {
+export default function TagsManager({ tags, setTags, suggestedTags, setEdited }) {
 
 
     const [tagInput, setTagInput] = useState('');
@@ -36,8 +36,8 @@ export default function TagsManager({ tags, setTags, suggestedTags, setEdited}) 
                 <div className={styles.tag_input_container}>
                     <input type="text" value={tagInput}
                         onFocus={() => setHasInputFocus(true)}
-                        onBlur={() => setHasInputFocus(false)}
-                        onChange={(e) => { setTagInput(e.target.value) }}
+                        // onBlur={() => setHasInputFocus(false)}
+                        onChange={(e) => { setTagInput(e.target.value); setHasInputFocus(true) }}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 addTag({
@@ -62,13 +62,15 @@ export default function TagsManager({ tags, setTags, suggestedTags, setEdited}) 
 
                 {
                     tagInput != '' && filteredSuggestedTags()?.length !== 0 && hasInputFocus &&
-                    <div className={styles.suggested_tags}>
+                    <div className={styles.suggested_tags} onMouseLeave={() => setHasInputFocus(false)}>
                         {
 
                             filteredSuggestedTags().map((tag, index) => {
                                 return (
                                     <div key={index} className={styles.tag_suggestion} onClick={() => {
-                                        addTag(tag)
+                                        setHasInputFocus(true);
+                                        addTag(tag);
+                                        setHasInputFocus(false);
                                     }}>
                                         {tag.text}
                                     </div>
