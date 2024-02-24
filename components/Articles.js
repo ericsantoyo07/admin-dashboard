@@ -1,7 +1,7 @@
 import { addNews, deleteNews, getAllNews, getAllSuggestionTags, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
 import styles from "../styles/Article.module.css"
-import { ArrowLeft, CheckCircle, CircleDashed, FilePenLine, Save, SaveAll, SaveIcon, Trash2, UserMinus } from "lucide-react";
+import { ArrowLeft, BookLockIcon, BookOpenIcon, CheckCircle, CircleDashed, EyeIcon, EyeOff, FilePenLine, Save, SaveAll, SaveIcon, Trash2, UserMinus } from "lucide-react";
 import ArticleCoverPhoto from "./ArticleCoverPhoto";
 import TagsManager from "./TagsManager";
 
@@ -69,6 +69,7 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
     const [title, setTitle] = useState(news.title);
     const [content, setContent] = useState(news.content);
     const [tags, setTags] = useState(news.tags || []);
+    const [published, setPublished] = useState(news.published);
     const [loading, setLoading] = useState(false);
     const [edited, setEdited] = useState(false);
 
@@ -81,7 +82,7 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
         let updated_at = Date.now();
 
         setLoading(true);
-        let { data, error } = await updateNews(news.id, { title, content, tags, updated_at });
+        let { data, error } = await updateNews(news.id, { title, content, tags, updated_at, published });
         setLoading(false);
         setEdited(false);
 
@@ -108,17 +109,31 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
                 <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
                 <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <CheckCircle size={50}
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>
+
+
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', border: '1px solid white', padding: '5px', borderRadius: '5px' }}>
+                    <EyeIcon
+                        onClick={() => {
+                            setPublished(true);
+                            setEdited(true);
+                        }}
+                        size={30} color={published ? 'white' : 'grey'} style={{ cursor: 'pointer', width: 'max-content' }} />
+                    <EyeOff
+                        onClick={() => {
+                            setPublished(false);
+                            setEdited(true);
+                        }}
+                        size={30} color={!published ? 'white' : 'grey'} style={{ cursor: 'pointer', width: 'max-content' }} />
+                </div>
+
+
+                <CheckCircle size={30}
                     aria-disabled={!edited}
 
                     color={edited ? 'white' : 'grey'}
                     style={{
                         cursor: 'pointer',
-                        marginTop: '10px',
-                        marginBottom: '10px',
-                        marginRight: '10px',
-                        marginLeft: 'auto'
                     }} onClick={handleNewsUpdate} />
             </div>
         </div>
