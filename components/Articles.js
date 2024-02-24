@@ -111,21 +111,18 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>
 
+                {
+                    published ? <EyeIcon size={30} color='white' style={{ cursor: 'pointer' }} onClick={() => {
+                        setPublished(published => !published);
+                        setEdited(true);
+                    }} /> : <EyeOff size={30} color='white' style={{ cursor: 'pointer' }} onClick={() => {
+                        setPublished(published => !published);
+                        setEdited(true);
+                    }} />
+                }
 
-                <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', border: '1px solid white', padding: '5px', borderRadius: '5px' }}>
-                    <EyeIcon
-                        onClick={() => {
-                            setPublished(true);
-                            setEdited(true);
-                        }}
-                        size={30} color={published ? 'white' : 'grey'} style={{ cursor: 'pointer', width: 'max-content' }} />
-                    <EyeOff
-                        onClick={() => {
-                            setPublished(false);
-                            setEdited(true);
-                        }}
-                        size={30} color={!published ? 'white' : 'grey'} style={{ cursor: 'pointer', width: 'max-content' }} />
-                </div>
+
+
 
 
                 <CheckCircle size={30}
