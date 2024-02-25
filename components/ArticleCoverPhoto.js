@@ -59,8 +59,10 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
 
 
     const handleFileSelected = (e) => {
-        setfile(e.target.files[0]);
-        setUrl(URL.createObjectURL(e.target.files[0]));
+        if (e.target.files[0]) {
+            setfile(e.target.files[0]);
+            setUrl(URL.createObjectURL(e.target.files[0]));
+        }
     };
 
     return (
