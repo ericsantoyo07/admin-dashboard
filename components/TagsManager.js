@@ -34,7 +34,7 @@ export default function TagsManager({ tags, setTags, suggestedTags, setEdited })
 
             <div className={styles.tag_adder}>
                 <div className={styles.tag_input_container}>
-                    <input type="text" value={tagInput}
+                    <input type="text" placeholder="Tags"  value={tagInput}
                         onFocus={() => setHasInputFocus(true)}
                         // onBlur={() => setHasInputFocus(false)}
                         onChange={(e) => { setTagInput(e.target.value); setHasInputFocus(true) }}

@@ -67,14 +67,14 @@ export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
 
     return (
         <div className={styles.article_cover_photo}>
-            <h3>Cover Photo</h3>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+            <h3>Upload Cover Photo</h3>
+            <div className={styles.upload_content} >
                 <input type="file" name="image" onChange={handleFileSelected} />
-                {loading && <CircleDashed />}
-                <UploadIcon onClick={handleSubmit} type="submit" />
+                {loading  && <CircleDashed className={styles.loading_icon} size={27} />}
+                <div className={styles.upload_button}><UploadIcon size={27} onClick={handleSubmit} type="submit" /></div>
 
             </div>
-            {url && !loading && <img width={200} src={url} />}
+            {url && !loading && <img  width={200}  src={url} />}
         </div>
     );
 }

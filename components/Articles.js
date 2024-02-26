@@ -103,13 +103,13 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
     return (
         <div className={styles.edit_article}>
 
-            <ArrowLeft size={30} style={{ marginLeft: '10px', marginBottom: '10px' }} onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }} />
+            <ArrowLeft className={styles.back_icon} size={40} style={{ marginLeft: '10px', marginBottom: '10px' }} onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }} />
             <div className={styles.article_content}>
-                <input type="text" value={title} onChange={(e) => { setTitle(e.target.value); setEdited(true) }} className={styles.article_title_input} />
+                <input type="text" value={title} placeholder="Title" onChange={(e) => { setTitle(e.target.value); setEdited(true) }} className={styles.article_title_input} />
                 <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
                 <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>
+            <div className={styles.bottom_buttons} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>
 
                 {
                     published ? <EyeIcon size={30} color='white' style={{ cursor: 'pointer' }} onClick={() => {
