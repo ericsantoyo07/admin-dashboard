@@ -3,7 +3,7 @@ import { supabase } from "@/database/supabase";
 import { useEffect, useState } from "react";
 import Articles from "@/components/Articles";
 import Invitations from "@/components/Invitations";
-import styles from '@/styles/OwnerPortal.module.css';
+import styles from '@/styles/OwnerManagerPortal.module.css';
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 

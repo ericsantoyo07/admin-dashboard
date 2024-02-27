@@ -1,7 +1,7 @@
 import React from 'react'
 import { supabase } from "@/database/supabase";
 import { LogOut } from 'lucide-react';
-import styles from '@/styles/OwnerPortal.module.css';
+import styles from '@/styles/OwnerManagerPortal.module.css';
 import Articles from './Articles';
 import { useAuth } from '@/hooks/useAuth';
 
