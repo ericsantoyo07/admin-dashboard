@@ -5,6 +5,7 @@ import Articles from "@/components/Articles";
 import Invitations from "@/components/Invitations";
 import styles from '@/styles/OwnerPortal.module.css';
 import { LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 
 
@@ -15,12 +16,20 @@ const TAB_OPTIONS = {
 export default function OwnerPortal() {
 
     const [selectedTab, setSelectedTab] = useState(TAB_OPTIONS.INVITAIONS);
+    const { role, session } = useAuth();
+
     return (
         <div className={styles.owner_portal}>
             <div className={styles.nav_bar}>
-                <h1>Owner Portal</h1>
+                <div>
+                    <h1>Owner Portal</h1>
+                </div>
                 {/* <button >Sign Out</button> */}
-                <LogOut size={30} onClick={() => supabase.auth.signOut()} />
+                <div className={styles.user_info}>
+
+                    <p> {session?.user?.email}</p>
+                    <LogOut size={30} onClick={() => supabase.auth.signOut()} />
+                </div>
             </div>
             {/* add divs to change between tabs with style */}
             <div className={styles.tabs}>

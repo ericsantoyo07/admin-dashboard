@@ -3,11 +3,16 @@ import ManagerPortal from "@/components/ManagerPortal";
 import OwnerPortal from "@/components/OwnerPortal";
 import { Page } from "@/components/Page";
 import { useAuth } from "@/hooks/useAuth";
+import { CircleDashed } from "lucide-react";
 
 
 export default function Dashboard() {
 
-  const { role } = useAuth();
+  const { role, session } = useAuth();
+
+  if (!session || !role) return <Page>
+    <CircleDashed size={100} />
+  </Page>
 
   return (
     <Page>
