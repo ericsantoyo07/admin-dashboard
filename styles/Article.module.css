@@ -321,13 +321,21 @@
         gap: 0px;
     }
 
+    .article_cover_photo img {
+        margin-top: 10px;
+    }   
+
+
+
     .upload_content {
-        gap: 10px;
         display: flex;
+        gap: 10px;
     }
 
     .upload_content>input {
         flex: 1;
         max-width: 65%;
     }
+
+
 }

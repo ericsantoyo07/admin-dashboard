@@ -67,7 +67,7 @@ function ListOfNews({ newsList, setNews, setShouldFetch }) {
     )
 }
 
-function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
+function EditNews({ news, setNews, setNewsList, setShouldFetch, suggestedTags }) {
     const [title, setTitle] = useState(news.title);
     const [content, setContent] = useState(news.content);
     const [tags, setTags] = useState(news.tags || []);
@@ -105,12 +105,12 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
     return (
         <div className={styles.edit_article}>
 
-            <ArrowLeft className={styles.back_icon} size={40} style={{ marginLeft: '10px', marginBottom: '10px' }} onClick={() => { setNews(null); setShouldFetch(shouldFetch => !shouldFetch) }} />
+            <ArrowLeft className={styles.back_icon} size={40} style={{ marginLeft: '10px', marginBottom: '10px' }} onClick={() => {setShouldFetch(shouldFetch => !shouldFetch); setNewsList([]);  setNews(null);  }} />
             <div className={styles.article_content}>
                 <input type="text" value={title} placeholder="Title" onChange={(e) => { setTitle(e.target.value); setEdited(true) }} className={styles.article_title_input} />
                 <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
                 <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
-                <Editor markdown={content} setMarkdown={setContent} setEdited={setEdited}/>
+                <Editor markdown={content} setMarkdown={setContent} setEdited={setEdited} />
             </div>
             <div className={styles.bottom_buttons} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>
 
@@ -146,6 +146,7 @@ export default function Articles() {
     const [newsList, setNewsList] = useState([]);
     const [suggestedTags, setSuggestedTags] = useState([]);
     const [shouldFetch, setShouldFetch] = useState(true);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -168,7 +169,9 @@ export default function Articles() {
 
     useEffect(() => {
         async function getNews() {
+            setLoading(true);
             let { data, error } = await getAllNews();
+            setLoading(false);
 
             if (data) {
                 console.log('news data', data);
@@ -182,11 +185,17 @@ export default function Articles() {
     }
         , [shouldFetch])
 
+    if (loading) {
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
+            <CircleDashed size={50} />
+        </div>
+    }
+
 
 
     return (
         <div className={styles.article_page}>
-            {news && <EditNews news={news} setNews={setNews} setShouldFetch={setShouldFetch} suggestedTags={suggestedTags} />}
+            {news && <EditNews news={news} setNews={setNews} setNewsList={setNewsList} setShouldFetch={setShouldFetch} suggestedTags={suggestedTags} />}
             {!news && <ListOfNews newsList={newsList} setNews={setNews} setShouldFetch={setShouldFetch} />}
         </div>
     )
