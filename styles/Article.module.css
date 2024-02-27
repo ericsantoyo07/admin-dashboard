@@ -337,5 +337,10 @@
         max-width: 65%;
     }
 
+    .back_icon {
+        top: 10px;
+        left: 10px;
+    }
+
 
 }
