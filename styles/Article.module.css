@@ -283,13 +283,42 @@
 @media (max-width: 768px) {
 
 
+    .article {
+        width: calc(100% - 20px);
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .article_main {
+        padding: 0px;
+    }
+
+    .article_main > .article_title {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .article_main > .article_buttons {
+        width: max-content;
+        display: flex;
+    }
+
+    .article_image {
+        width: 100%;
+        min-width: 100%;
+        margin: 0;
+    }
+
+
     .article_content {
         width: calc(100% - 20px);
     }
 
     .article_cover_photo {
         flex-direction: column;
-        gap: 10px;
+        gap: 0px;
     }
 
     .upload_content {
