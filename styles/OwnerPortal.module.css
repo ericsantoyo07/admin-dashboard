@@ -27,3 +27,30 @@
     flex-direction: column;
 
 }
+
+.user_info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+    width: max-content;
+}
+
+@media screen and (max-width: 800px) {
+    .nav_bar {
+        padding: 10px;
+    }
+
+    .tabs {
+        display: none;
+    }
+
+    .user_info {
+        max-width: 40vw;
+        flex-direction: column;
+        gap: 10px;
+        word-break: break-all;
+        align-items: end;
+    }
+}
