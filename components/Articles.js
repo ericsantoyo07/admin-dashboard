@@ -1,9 +1,11 @@
 import { addNews, deleteNews, getAllNews, getAllSuggestionTags, updateNews } from "@/database/functions";
 import { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
 import styles from "../styles/Article.module.css"
 import { ArrowLeft, BookLockIcon, BookOpenIcon, CheckCircle, CircleDashed, EyeIcon, EyeOff, FilePenLine, Save, SaveAll, SaveIcon, Trash2, UserMinus } from "lucide-react";
 import ArticleCoverPhoto from "./ArticleCoverPhoto";
 import TagsManager from "./TagsManager";
+const Editor = dynamic(() => import('./Editor'), { ssr: false })
 
 
 function ListOfNews({ newsList, setNews, setShouldFetch }) {
@@ -108,6 +110,7 @@ function EditNews({ news, setNews, setShouldFetch, suggestedTags }) {
                 <input type="text" value={title} placeholder="Title" onChange={(e) => { setTitle(e.target.value); setEdited(true) }} className={styles.article_title_input} />
                 <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
                 <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
+                <Editor markdown={content} setMarkdown={setContent} setEdited={setEdited}/>
             </div>
             <div className={styles.bottom_buttons} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>
 
