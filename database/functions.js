@@ -66,6 +66,19 @@ async function addCoverPhoto(file, filepath) {
     return { data, error }
 }
 
+async function addImage(file, filepath) {
+    const extension = file.name.split('.').pop();
+    const { data, error } = await supabase.storage
+        .from("images")
+        .upload(filepath, file, {
+            upsert: true,
+            cacheControl: '0',
+        });
+
+    return { data, error }
+
+}
+
 async function updateCoverPhotoUrl(newsId, url) {
     const { data, error } = await supabase.from('news').update({ cover_photo_url: url }).match({ id: newsId }).select('*');
     return { data, error }
@@ -100,6 +113,16 @@ async function getAllSuggestionTags() {
     return { suggestions, error: { playersError, teamsError } }
 }
 
+async function getNewsById(id) {
+    const { data, error } = await supabase.from('news').select('*').match({ id: id }).single();
+    return { data, error }
+}
+
+async function updatePhotos(newsId, photos) {
+    const { data, error } = await supabase.from('news').update({ photos: photos }).match({ id: newsId }).select('*');
+    return { data, error }
+}
+
 export {
     getAllPlayers,
     getRoleOfUser,
@@ -112,5 +135,8 @@ export {
     updateNews,
     addCoverPhoto,
     updateCoverPhotoUrl,
-    getAllSuggestionTags
+    getAllSuggestionTags,
+    addImage,
+    getNewsById,
+    updatePhotos
 }

@@ -5,6 +5,7 @@ import styles from "../styles/Article.module.css"
 import { ArrowLeft, BookLockIcon, BookOpenIcon, CheckCircle, CircleDashed, EyeIcon, EyeOff, FilePenLine, Save, SaveAll, SaveIcon, Trash2, UserMinus } from "lucide-react";
 import ArticleCoverPhoto from "./ArticleCoverPhoto";
 import TagsManager from "./TagsManager";
+import ArticleGallery from "./ArticleGallery";
 const Editor = dynamic(() => import('./Editor'), { ssr: false })
 
 
@@ -110,6 +111,7 @@ function EditNews({ news, setNews, setNewsList, setShouldFetch, suggestedTags })
                 <input type="text" value={title} placeholder="Title" onChange={(e) => { setTitle(e.target.value); setEdited(true) }} className={styles.article_title_input} />
                 <ArticleCoverPhoto newsId={news.id} cover_photo_url={news.cover_photo_url} setLoading={setLoading} loading={loading} />
                 <TagsManager tags={tags} suggestedTags={suggestedTags} setTags={setTags} setEdited={setEdited} />
+                <ArticleGallery newsId={news.id} photo_urls={news.photos} />
                 <Editor markdown={content} setMarkdown={setContent} setEdited={setEdited} />
             </div>
             <div className={styles.bottom_buttons} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', padding: '10px' }}>

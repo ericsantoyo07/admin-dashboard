@@ -7,7 +7,7 @@ import styles from "../styles/Article.module.css";
 
 
 export default function ArticleCoverPhoto({ newsId, cover_photo_url }) {
-    const [file, setfile] = useState([]);
+    const [file, setfile] = useState(null);
     const [url, setUrl] = useState(cover_photo_url);
     const [random, setRandom] = useState(1)
     const [loading, setLoading] = useState(false);
