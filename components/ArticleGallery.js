@@ -22,6 +22,7 @@ export default function ArticleGallery({ newsId, photo_urls }) {
             getNewsById(newsId).then(({ data, error }) => {
                 if (data) {
                     setImages(data.photos);
+                    setCurrentImage(null);
                 }
                 setLoading(false);
             })
