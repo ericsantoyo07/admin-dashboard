@@ -137,7 +137,7 @@ export default function ArticleGallery({ newsId, photo_urls }) {
                     <div className={styles.imageGalleryContainer}>
 
                         {
-                            images.map((image, index) => {
+                            images?.map((image, index) => {
                                 return (
 
                                     <div key={index} className={styles.imageContainer}>
