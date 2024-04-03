@@ -5,13 +5,14 @@ import { Page } from "@/components/Page";
 import { useAuth } from "@/hooks/useAuth";
 import { CircleDashed } from "lucide-react";
 
-
 export default function Dashboard() {
 
   const { role, session } = useAuth();
 
   if (!session || !role) return <Page>
-    <CircleDashed size={100} />
+    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+      <CircleDashed size={100} />
+    </div>
   </Page>
 
   return (

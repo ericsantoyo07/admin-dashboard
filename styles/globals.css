@@ -57,6 +57,12 @@ body {
   color: white;
 }
 
+.mainLoading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* #1E1F22 #313338 #2B2D31 */
 
 
