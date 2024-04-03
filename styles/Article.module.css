@@ -280,6 +280,103 @@
     justify-content: flex-end;
 }
 
+.photoGallery {
+    position: relative;
+    min-height: 300px;
+    width: max-content;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+    border-radius: 10px;
+    border: 2px solid #666666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2B2D31;
+    gap: 30px;
+}
+
+.coverPhotoForm {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #313338;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px solid #666666;
+}
+
+.coverPhotoSubmit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+.currentImageContainer {
+    width: 240px;
+    min-width: 240px;
+    min-height: max-content;
+
+}
+
+.currentImageContainer>img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #8d3131;
+}
+
+.currentImageContainer .deleteButton {
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    background-color: #8d3131;
+    margin-top: 10px;
+}
+
+.imageGalleryContainer {
+    display: flex;
+    border: 2px solid #666666;
+    padding: 10px;
+    gap: 10px;
+    width: 30vw;
+    border-radius: 10px;
+}
+
+.image {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #6c4141;
+}
+
+.imageContainer {
+    gap: 10px;
+    /* background-color: #ff0000; */
+}
+
+.mainContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deletesButton {
+    padding: 3px;
+    border-radius: 10px;
+    color: white;
+    background-color: #8d3131;
+}
+
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 768px) {
 
 
@@ -295,12 +392,12 @@
         padding: 0px;
     }
 
-    .article_main > .article_title {
+    .article_main>.article_title {
         width: 100%;
         margin-bottom: 10px;
     }
 
-    .article_main > .article_buttons {
+    .article_main>.article_buttons {
         width: max-content;
         display: flex;
     }
@@ -323,7 +420,7 @@
 
     .article_cover_photo img {
         margin-top: 10px;
-    }   
+    }
 
 
 

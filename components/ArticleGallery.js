@@ -105,16 +105,17 @@ export default function ArticleGallery({ newsId, photo_urls }) {
 
             {
                 !loading &&
-                <div>
-                    <div>
+                <div className={styles.mainContainer}>
+                    <div className={styles.photoGallery}>
+
                         <form onSubmit={handleSubmit} className={styles.coverPhotoForm}>
                             <label htmlFor="file" className={styles.coverPhotoLabel}>
                                 <input type="file" id="file" name="file" onChange={handleFileSelected} className={styles.coverPhotoInput} />
-                                <UploadIcon size={24} />
-                                <span>Upload Image</span>
+                                {/* <UploadIcon size={24} /> */}
                             </label>
-                            <button type="submit" className={styles.coverPhotoSubmit}>Upload</button>
                         </form>
+                        <div className={styles.coverPhotoSubmit}><UploadIcon size={27} onClick={handleSubmit} type="submit" />
+                        </div>
 
                         {
                             currentImage &&
@@ -127,12 +128,16 @@ export default function ArticleGallery({ newsId, photo_urls }) {
                                 } className={styles.deleteButton}>Delete</button>
                             </div>
                         }
-                    </div>
-                    <div>
+                        </div>
+                    
+                        <div className={styles.imageGalleryContainer}>
+                            
                         {
                             images.map((image, index) => {
                                 return (
+                                   
                                     <div key={index} className={styles.imageContainer}>
+                                        
                                         <img src={image} alt="gallery" className={styles.image} />
                                         <button onClick={() => {
                                             let newImages = images.filter((img, i) => i !== index);
@@ -141,7 +146,7 @@ export default function ArticleGallery({ newsId, photo_urls }) {
                                                 setShouldFetch(!shouldFetch);
                                             })
                                         }
-                                        } className={styles.deleteButton}>Delete</button>
+                                        } className={styles.deletesButton}>Delete</button>
                                     </div>
                                 )
                             })
