@@ -5,9 +5,6 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 
 function AuthUI() {
 
-
-
-
     return (
 
         <div className="auth">
